@@ -1,3 +1,22 @@
-[[plugins]]
-package = "@netlify/angular-runtime"
-  enabled = false
+# netlify.toml
+
+# Build settings
+[build]
+  # Command to build your Angular project
+  command = "ng build --configuration production"
+
+  # Output folder to publish to Netlify
+  publish = "dist/task-management/browser"
+
+# Optional: environment variables
+[build.environment]
+  # Example: set Node.js version
+  NODE_VERSION = "20"
+
+# Optional: headers for your deployed site
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
