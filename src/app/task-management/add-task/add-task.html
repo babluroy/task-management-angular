@@ -1,0 +1,74 @@
+<div class="min-h-full p-4 md:p-8 bg-gray-50"> 
+  
+  <div class="flex justify-between items-center pb-4 mb-6 border-b border-gray-200">
+    <h1 class="text-3xl font-extrabold text-gray-900">Create New Task</h1>
+    </div>
+  
+  <div class="w-full bg-white shadow-lg rounded-xl p-6 md:p-8">
+    
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+      <div class="space-y-6">
+
+        <div>
+          <label for="title" class="block text-sm font-medium text-gray-700">Title <span class="text-red-500">*</span></label>
+          <input id="title" type="text" formControlName="title"
+                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150">
+          <div *ngIf="f['title'].invalid && f['title'].touched" class="text-red-500 text-xs mt-1">
+            Title is required.
+          </div>
+        </div>
+
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea id="description" formControlName="description" rows="4"
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <div>
+            <label for="status" class="block text-sm font-medium text-gray-700">Status <span class="text-red-500">*</span></label>
+            <select id="status" formControlName="status"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white transition duration-150">
+              <option *ngFor="let status of statusOptions" [value]="status">
+                {{ status | titlecase }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label for="priority" class="block text-sm font-medium text-gray-700">Priority <span class="text-red-500">*</span></label>
+            <select id="priority" formControlName="priority"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white transition duration-150">
+              <option *ngFor="let priority of priorityOptions" [value]="priority">
+                {{ priority | titlecase }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label for="assignedUser" class="block text-sm font-medium text-gray-700">Assigned User <span class="text-red-500">*</span></label>
+            <select id="assignedUser" formControlName="assignedUser"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white transition duration-150">
+              <option [ngValue]="null" disabled>Select an assignee</option>
+              <option *ngFor="let user of availableUsers" [ngValue]="user">
+                {{ user.name }}
+              </option>
+            </select>
+            <div *ngIf="f['assignedUser'].invalid && f['assignedUser'].touched" class="text-red-500 text-xs mt-1">
+              Please select a user.
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="pt-6 mt-6 border-t border-gray-200 flex justify-end">
+        <button type="submit" [disabled]="taskForm.invalid"
+          class="inline-flex justify-center py-2 px-6 border border-transparent shadow-md text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition duration-150">
+         {{isEditMode? 'Update Task': 'Create Task'}} 
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
