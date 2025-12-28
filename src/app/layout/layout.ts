@@ -16,9 +16,8 @@ export class LayoutComponent {
   sidebarOpen: boolean = false;
 
   menuItems = [
-    { path: '/task-management', name: 'Task Board' },
-    { path: '/task-management/list-tasks', name: 'Task List' },
-    { path: '/task-management/add-task', name: 'New Task' }
+    { path: '/inventory-management', name: 'Add Product' },
+    { path: '/inventory-management/product-list', name: 'Product list' },
   ];
 
   isActive(path: string): boolean {

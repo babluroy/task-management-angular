@@ -1,0 +1,61 @@
+<div class="max-w-6xl bg-slate-50 mx-auto mt-10 rounded p-6  ">
+  <h2 class="text-2xl font-bold text-slate-800 mb-6">
+   {{ isEditMode ? 'Edit Product' : 'Add New Product' }}
+  </h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-5">
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Product Name</label>
+      <input type="text" formControlName="name" 
+        class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+        placeholder="e.g. Wireless Mouse">
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-slate-700">Category</label>
+        <select formControlName="category" 
+          class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border">
+          <option value="">Select Category</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-700">Price</label>
+        <input type="number" formControlName="price" 
+          class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Initial Stock Quantity</label>
+      <input type="number" formControlName="stock" 
+        class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border">
+      <p *ngIf="productForm.get('stock')?.value < 5" class="text-amber-600 text-xs mt-1 font-semibold">
+        Note: This will trigger a low stock warning.
+      </p>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Product Image</label>
+      <div class="mt-2 flex items-center gap-4">
+        <div *ngIf="imagePreview" class="h-20 w-20 rounded-lg overflow-hidden border">
+          <img [src]="imagePreview" class="h-full w-full object-cover">
+        </div>
+        <input type="file" (change)="onFileChange($event)" accept="image/*"
+          class="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3 pt-4 border-t">
+      <button type="button" (click)="router.navigate(['/products'])"
+        class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50">
+        Cancel
+      </button>
+      <button type="submit" [disabled]="productForm.invalid"
+        class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:bg-slate-400 disabled:cursor-not-allowed">
+            {{ isEditMode ? 'Update Product' : 'Save Product' }}
+      </button>
+    </div>
+  </form>
+</div>

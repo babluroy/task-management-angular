@@ -3,11 +3,11 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'task-management',
+        redirectTo: 'inventory-management',
         pathMatch: 'full'
     },
     {
-        path: 'task-management',
-         loadChildren: () => import('../app/task-management/task-management-module').then(m => m.TaskManagementModule)
-    },
+        path: 'inventory-management',
+        loadChildren: () => import('../app/inventory-management/inventory-management-module').then(m => m.InventoryManagementModule)
+    }
 ];
